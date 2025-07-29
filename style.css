@@ -1,0 +1,134 @@
+<style>
+:root {
+--main-color: #4A90E2;
+--bg-color: #f4f6f8;
+--card-bg: #fff;
+--text-color: #333;
+--border-radius: 10px;
+}
+
+body {
+font-family: 'Helvetica Neue', sans-serif;
+background: var(--bg-color);
+color: var(--text-color);
+padding: 20px;
+margin: 0;
+}
+
+h1, h2 {
+color: var(--main-color);
+margin-bottom: 10px;
+}
+
+input, select, button {
+font-size: 1em;
+padding: 10px;
+margin-bottom: 12px;
+border: 1px solid #ccc;
+border-radius: var(--border-radius);
+width: 100%;
+box-sizing: border-box;
+}
+
+button {
+background-color: var(--main-color);
+color: white;
+border: none;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+button:hover {
+background-color: #357ABD;
+}
+
+.image-box {
+display: flex;
+flex-wrap: wrap;
+gap: 12px;
+margin-top: 10px;
+}
+
+.image-item {
+background: var(--card-bg);
+border-radius: var(--border-radius);
+box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+padding: 10px;
+width: 130px;
+position: relative;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.image-item img {
+width: 100%;
+border-radius: 6px;
+object-fit: cover;
+}
+
+.info {
+font-size: 0.85em;
+text-align: center;
+margin-top: 5px;
+color: #555;
+}
+
+.delete-btn {
+position: absolute;
+top: 4px;
+right: 4px;
+background: crimson;
+color: white;
+border: none;
+border-radius: 50%;
+width: 20px;
+height: 20px;
+font-weight: bold;
+cursor: pointer;
+}
+
+#purposeCheckboxes label {
+display: inline-block;
+margin-right: 10px;
+margin-bottom: 6px;
+font-size: 0.95em;
+}
+
+#suggestion {
+display: flex;
+align-items: center;
+flex-wrap: wrap;
+margin-top: 10px;
+gap: 10px;
+}
+
+#suggestion img {
+width: 120px;
+border-radius: var(--border-radius);
+box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+#weatherInfo {
+font-size: 1em;
+background: #e6f0fb;
+padding: 10px;
+border-radius: var(--border-radius);
+margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+.image-box {
+justify-content: center;
+}
+
+#suggestion {
+flex-direction: column;
+align-items: center;
+}
+
+#suggestion img {
+width: 90%;
+}
+}
+</style>
