@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>服コーデ提案アプリ</title>
+<style>
+body { font-family: sans-serif; padding: 20px; }
+label { display: block; margin-top: 10px; }
+.preview img { max-width: 150px; margin-top: 10px; }
+.image-box { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.image-item {
+position: relative;
+border: 1px solid #ccc;
+padding: 5px;
+}
+.image-item img { max-width: 100px; height: auto; }
+.delete-btn {
+position: absolute;
+top: 2px;
+right: 2px;
+background: red;
+color: white;
+border: none;
+border-radius: 50%;
+width: 20px;
+height: 20px;
+cursor: pointer;
+}
+.section { margin-top: 30px; }
+</style>
+</head>
+<body>
+<h1>服の登録とコーデ提案</h1>
+
+<div>
+<label>画像を選択：</label>
+<input type="file" accept="image/*" id="imageInput">
+
+<label>カテゴリを選択：</label>
+<select id="categorySelect">
+<option value="tops">トップス</option>
+<option value="bottoms">ボトムス</option>
+</select>
+
+<button id="addButton">追加</button>
+</div>
+
+<div class="section">
+<h2>トップス</h2>
+<div class="image-box" id="topsList"></div>
+
+<h2>ボトムス</h2>
+<div class="image-box" id="bottomsList"></div>
+</div>
+
+<div class="section">
+<h2>今日のコーデ提案</h2>
+<button id="suggestButton">コーデを提案する</button>
+<div id="suggestion" class="image-box"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
