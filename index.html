@@ -17,6 +17,7 @@ background: red; color: white; border: none;
 border-radius: 50%; width: 20px; height: 20px; cursor: pointer;
 }
 h2 { margin-top: 30px; }
+#suggestion img { width: 100px; margin-right: 10px; }
 </style>
 </head>
 <body>
@@ -32,37 +33,24 @@ h2 { margin-top: 30px; }
 
 <label>色</label>
 <select id="colorSelect">
-<option value="白">白</option>
-<option value="黒">黒</option>
-<option value="グレー">グレー</option>
-<option value="ネイビー">ネイビー</option>
-<option value="赤">赤</option>
-<option value="青">青</option>
-<option value="緑">緑</option>
-<option value="黄色">黄色</option>
-<option value="ピンク">ピンク</option>
-<option value="ベージュ">ベージュ</option>
-<option value="茶">茶</option>
-<option value="紫">紫</option>
-<option value="水色">水色</option>
-<option value="オレンジ">オレンジ</option>
-<option value="カーキ">カーキ</option>
-<option value="金">金</option>
-<option value="銀">銀</option>
-<option value="ワインレッド">ワインレッド</option>
-<option value="ミント">ミント</option>
-<option value="ラベンダー">ラベンダー</option>
+<option value="白">白</option><option value="黒">黒</option><option value="グレー">グレー</option>
+<option value="ネイビー">ネイビー</option><option value="赤">赤</option><option value="青">青</option>
+<option value="緑">緑</option><option value="黄色">黄色</option><option value="ピンク">ピンク</option>
+<option value="ベージュ">ベージュ</option><option value="茶">茶</option><option value="紫">紫</option>
+<option value="水色">水色</option><option value="オレンジ">オレンジ</option><option value="カーキ">カーキ</option>
+<option value="金">金</option><option value="銀">銀</option><option value="ワインレッド">ワインレッド</option>
+<option value="ミント">ミント</option><option value="ラベンダー">ラベンダー</option>
 </select>
 
-<label>用事</label>
-<select id="purposeSelect">
-<option value="通勤">通勤</option>
-<option value="フォーマル">フォーマル</option>
-<option value="お出かけ">お出かけ</option>
-<option value="部屋着">部屋着</option>
-<option value="スタジオ">スタジオ</option>
-<option value="中継">中継</option>
-</select>
+<label>用事（複数選択可）</label>
+<div id="purposeCheckboxes">
+<label><input type="checkbox" value="通勤"> 通勤</label>
+<label><input type="checkbox" value="フォーマル"> フォーマル</label>
+<label><input type="checkbox" value="お出かけ"> お出かけ</label>
+<label><input type="checkbox" value="部屋着"> 部屋着</label>
+<label><input type="checkbox" value="スタジオ"> スタジオ</label>
+<label><input type="checkbox" value="中継"> 中継</label>
+</div>
 
 <button id="addButton">追加</button>
 
@@ -75,7 +63,10 @@ h2 { margin-top: 30px; }
 <h2>今日の天気</h2>
 <div id="weatherInfo">取得中...</div>
 
+<h2>おすすめコーディネート</h2>
+<button id="suggestButton">コーデを提案</button>
+<div id="suggestion"></div>
+
 <script src="script.js"></script>
 </body>
 </html>
-
