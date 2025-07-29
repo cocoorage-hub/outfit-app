@@ -2,64 +2,77 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>服コーデ提案アプリ</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>服コーデ提案アプリ</title>
 <style>
-body { font-family: sans-serif; padding: 20px; }
-label { display: block; margin-top: 10px; }
-.preview img { max-width: 150px; margin-top: 10px; }
+body { font-family: sans-serif; padding: 16px; background: #f9f9f9; }
+label, select, input, button { font-size: 1em; display: block; margin: 10px 0; width: 100%; }
 .image-box { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
-.image-item {
-position: relative;
-border: 1px solid #ccc;
-padding: 5px;
-}
-.image-item img { max-width: 100px; height: auto; }
+.image-item { position: relative; background: white; border: 1px solid #ccc; padding: 8px; border-radius: 8px; width: 120px; }
+.image-item img { width: 100%; border-radius: 4px; }
+.info { font-size: 0.9em; margin-top: 5px; white-space: pre-line; }
 .delete-btn {
-position: absolute;
-top: 2px;
-right: 2px;
-background: red;
-color: white;
-border: none;
-border-radius: 50%;
-width: 20px;
-height: 20px;
-cursor: pointer;
+position: absolute; top: 4px; right: 4px;
+background: red; color: white; border: none;
+border-radius: 50%; width: 20px; height: 20px; cursor: pointer;
 }
-.section { margin-top: 30px; }
+h2 { margin-top: 30px; }
 </style>
 </head>
 <body>
-<h1>服の登録とコーデ提案</h1>
+<h1>服の登録</h1>
 
-<div>
-<label>画像を選択：</label>
 <input type="file" accept="image/*" id="imageInput">
 
-<label>カテゴリを選択：</label>
+<label>カテゴリ</label>
 <select id="categorySelect">
 <option value="tops">トップス</option>
 <option value="bottoms">ボトムス</option>
 </select>
 
-<button id="addButton">追加</button>
-</div>
+<label>色</label>
+<select id="colorSelect">
+<option value="白">白</option>
+<option value="黒">黒</option>
+<option value="グレー">グレー</option>
+<option value="ネイビー">ネイビー</option>
+<option value="赤">赤</option>
+<option value="青">青</option>
+<option value="緑">緑</option>
+<option value="黄色">黄色</option>
+<option value="ピンク">ピンク</option>
+<option value="ベージュ">ベージュ</option>
+<option value="茶">茶</option>
+<option value="紫">紫</option>
+<option value="水色">水色</option>
+<option value="オレンジ">オレンジ</option>
+<option value="カーキ">カーキ</option>
+<option value="金">金</option>
+<option value="銀">銀</option>
+<option value="ワインレッド">ワインレッド</option>
+<option value="ミント">ミント</option>
+<option value="ラベンダー">ラベンダー</option>
+</select>
 
-<div class="section">
+<label>用事</label>
+<select id="purposeSelect">
+<option value="通勤">通勤</option>
+<option value="フォーマル">フォーマル</option>
+<option value="お出かけ">お出かけ</option>
+<option value="部屋着">部屋着</option>
+<option value="スタジオ">スタジオ</option>
+<option value="中継">中継</option>
+</select>
+
+<button id="addButton">追加</button>
+
 <h2>トップス</h2>
 <div class="image-box" id="topsList"></div>
 
 <h2>ボトムス</h2>
 <div class="image-box" id="bottomsList"></div>
-</div>
-
-<div class="section">
-<h2>今日のコーデ提案</h2>
-<button id="suggestButton">コーデを提案する</button>
-<div id="suggestion" class="image-box"></div>
-</div>
 
 <script src="script.js"></script>
 </body>
 </html>
+
