@@ -1,17 +1,20 @@
 let tops = [];
 let bottoms = [];
+let weatherData = { temp: null, weather: "" };
 
 window.addEventListener('load', () => {
 tops = JSON.parse(localStorage.getItem('topsData')) || [];
 bottoms = JSON.parse(localStorage.getItem('bottomsData')) || [];
 renderImages();
+fetchWeather();
 });
 
 document.getElementById('addButton').addEventListener('click', () => {
 const file = document.getElementById('imageInput').files[0];
 const category = document.getElementById('categorySelect').value;
 const color = document.getElementById('colorSelect').value;
-const purpose = document.getElementById('purposeSelect').value;
+const purposeCheckboxes = document.querySelectorAll('#purposeCheckboxes input[type="checkbox"]:checked');
+const purposes = Array.from(purposeCheckboxes).map(cb => cb.value);
 
 if (!file || !file.type.startsWith('image/')) return;
 
@@ -20,7 +23,7 @@ reader.onload = function (e) {
 const imageData = {
 src: e.target.result,
 color,
-purpose
+purposes
 };
 
 if (category === 'tops') {
@@ -62,7 +65,7 @@ img.src = item.src;
 
 const info = document.createElement('div');
 info.className = 'info';
-info.innerText = `色：${item.color}\n用事：${item.purpose}`;
+info.innerText = `色：${item.color}\n用事：${item.purposes?.join(', ') || 'なし'}`;
 
 const del = document.createElement('button');
 del.textContent = '×';
@@ -84,7 +87,7 @@ div.appendChild(del);
 return div;
 }
 
-// 🌤 天気取得・表示
+// 🌤 天気取得
 function fetchWeather() {
 if (!navigator.geolocation) {
 document.getElementById('weatherInfo').textContent = '位置情報が取得できません。';
@@ -105,13 +108,12 @@ const daily = data.daily;
 const todayMax = daily.temperature_2m_max[0];
 const todayMin = daily.temperature_2m_min[0];
 
-const weatherText = `現在：${weather.temperature}℃、${weather.weathercode === 0 ? "晴れ" : "くもりか雨"}
-最高気温：${todayMax}℃／最低気温：${todayMin}℃`;
+weatherData.temp = weather.temperature;
+weatherData.weather = weather.weathercode === 0 ? '晴れ' : 'くもり/雨';
 
+const weatherText = `現在：${weather.temperature}℃、${weatherData.weather}
+最高気温：${todayMax}℃／最低気温：${todayMin}℃`;
 document.getElementById('weatherInfo').textContent = weatherText;
-})
-.catch(() => {
-document.getElementById('weatherInfo').textContent = '天気の取得に失敗しました。';
 });
 },
 () => {
@@ -120,6 +122,49 @@ document.getElementById('weatherInfo').textContent = '位置情報の取得に�
 );
 }
 
-// ページ読み込み時に実行
-fetchWeather();
+// 🎯 コーデ提案ロジック
+document.getElementById('suggestButton').addEventListener('click', () => {
+const allPurposes = ['通勤', 'フォーマル', 'お出かけ', '部屋着', 'スタジオ', '中継'];
+const suggestions = [];
 
+for (let top of tops) {
+for (let bottom of bottoms) {
+for (let purpose of allPurposes) {
+const topMatch = top.purposes.includes(purpose);
+const bottomMatch = bottom.purposes.includes(purpose);
+const bothMatch = topMatch && bottomMatch;
+
+const colorClash = top.color === bottom.color;
+const colorOK = (purpose === '中継') || !colorClash;
+
+const temp = weatherData.temp || 25;
+const tempOK = (temp >= 28 || temp <= 10) ? true : true; // 今はすべてOK（今後細分化可能）
+
+if (bothMatch && colorOK && tempOK) {
+suggestions.push({ top, bottom, purpose });
+}
+}
+}
+}
+
+const area = document.getElementById('suggestion');
+area.innerHTML = '';
+
+if (suggestions.length === 0) {
+area.textContent = '条件に合うコーデが見つかりませんでした。';
+return;
+}
+
+const choice = suggestions[Math.floor(Math.random() * suggestions.length)];
+const topImg = document.createElement('img');
+const bottomImg = document.createElement('img');
+topImg.src = choice.top.src;
+bottomImg.src = choice.bottom.src;
+
+const label = document.createElement('div');
+label.innerText = `用事：${choice.purpose}\n色：${choice.top.color} + ${choice.bottom.color}`;
+
+area.appendChild(topImg);
+area.appendChild(bottomImg);
+area.appendChild(label);
+});
