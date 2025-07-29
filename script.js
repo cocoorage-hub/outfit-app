@@ -84,3 +84,42 @@ div.appendChild(del);
 return div;
 }
 
+// 🌤 天気取得・表示
+function fetchWeather() {
+if (!navigator.geolocation) {
+document.getElementById('weatherInfo').textContent = '位置情報が取得できません。';
+return;
+}
+
+navigator.geolocation.getCurrentPosition(
+(position) => {
+const lat = position.coords.latitude;
+const lon = position.coords.longitude;
+const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min&timezone=auto`;
+
+fetch(apiUrl)
+.then(response => response.json())
+.then(data => {
+const weather = data.current_weather;
+const daily = data.daily;
+const todayMax = daily.temperature_2m_max[0];
+const todayMin = daily.temperature_2m_min[0];
+
+const weatherText = `現在：${weather.temperature}℃、${weather.weathercode === 0 ? "晴れ" : "くもりか雨"}
+最高気温：${todayMax}℃／最低気温：${todayMin}℃`;
+
+document.getElementById('weatherInfo').textContent = weatherText;
+})
+.catch(() => {
+document.getElementById('weatherInfo').textContent = '天気の取得に失敗しました。';
+});
+},
+() => {
+document.getElementById('weatherInfo').textContent = '位置情報の取得に失敗しました。';
+}
+);
+}
+
+// ページ読み込み時に実行
+fetchWeather();
+
